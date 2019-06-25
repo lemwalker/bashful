@@ -21,8 +21,10 @@ set expandtab       " Replaces tabs with spaces
 "set ruler
 set ttyfast     "screen updates smoother. assumes fast connection
 "set showcmd
+set listchars=tab:→\ ,trail:·
 set laststatus=2
 set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
+set hlsearch "highlight matches
 set wildmenu
 
 if &diff
@@ -30,7 +32,6 @@ if &diff
     set diffopt+=iwhite
 endif
 
-set hlsearch "highlight matches
 
 " Highlighting
 "   124:Red             210:light-Red           217:bright-Red
@@ -53,7 +54,7 @@ hi VertSplit    ctermfg=236     ctermbg=236     cterm=None
 hi NonText      ctermfg=40      ctermbg=None    cterm=None
 hi Cursor       ctermfg=124     ctermbg=None    cterm=None
 hi SpecialKey   ctermfg=87      ctermbg=None    cterm=Bold
-
+hi FoldColumn   ctermfg=247     ctermbg=None    cterm=Bold
 hi DiffAdd      ctermfg=16      ctermbg=120     cterm=None
 hi DiffDelete   ctermfg=16      ctermbg=217     cterm=None
 hi DiffText     ctermfg=16      ctermbg=228     cterm=None
@@ -73,6 +74,16 @@ hi String       ctermfg=214     ctermbg=None    cterm=None
 hi Number       ctermfg=176     ctermbg=None    cterm=None
 hi Special      ctermfg=228     ctermbg=None    cterm=Bold
 hi Operator     ctermfg=202     ctermbg=None    cterm=Bold
+hi Error        ctermfg=16          ctermbg=124         cterm=Bold
+hi Ignore       ctermfg=244         ctermbg=236         cterm=Bold
+hi Underline    ctermfg=244         ctermbg=None        cterm=None
+
+hi Pmenu        ctermfg=White       ctermbg=DarkGray    cterm=None
+hi PmenuSel     ctermfg=None        ctermbg=Gray        cterm=Bold
+hi PmenuSbar    ctermfg=DarkGray    ctermbg=DarkGray    cterm=None
+hi PmenuThumb   ctermfg=Gray        ctermbg=Gray        cterm=None
+
+
 
 " sh specific
 "   -- Colors to use w dark theme

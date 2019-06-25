@@ -18,9 +18,12 @@ set shiftwidth=4
 set tabstop=4       " Number of spaces a tab counts for in the file
 set expandtab       " Replaces tabs with spaces
 "set softtabstop     " This causes issues on WSL (as of 20190401)
-
-set showcmd
+"set ruler
+set ttyfast     "screen updates smoother. assumes fast connection
+"set showcmd
 set laststatus=2
+set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
+set wildmenu
 
 if &diff
     " ignore whitespace in vimdiff
@@ -40,6 +43,7 @@ set hlsearch "highlight matches
 "   16 :Black           213:white               233:Almost black
 "   236:Dark Gray       242:darkish-Gray        244:medium-Gray
 "   245:lightish-Gray   247:light-gray
+
 
 hi StatusLine   ctermfg=16      ctermbg=71      cterm=None
 hi StatusLineNC ctermfg=242     ctermbg=236     cterm=None
@@ -69,5 +73,24 @@ hi String       ctermfg=214     ctermbg=None    cterm=None
 hi Number       ctermfg=176     ctermbg=None    cterm=None
 hi Special      ctermfg=228     ctermbg=None    cterm=Bold
 hi Operator     ctermfg=202     ctermbg=None    cterm=Bold
+
+" sh specific
+"   -- Colors to use w dark theme
+"   red        : 203
+"   light-red  : 210
+"   orange     : 208
+"   lightorange: 220
+"   yellow     : 178
+"   lightyellow: 193
+"   green      : 71
+"   light-green: 83
+"   blue       : 75
+"   lightblue  : 87
+"   purple     : 176
+"   cyan       : 37
+"   light-cyan : 116
+"   grey       : 246
+"   white      : 253
+"
 
 

@@ -49,7 +49,7 @@ endif
 hi StatusLine   ctermfg=16      ctermbg=71      cterm=None
 hi StatusLineNC ctermfg=242     ctermbg=236     cterm=None
 hi Directory    ctermfg=76      ctermbg=None    cterm=None
-hi LineNr       ctermfg=236     ctermbg=None    cterm=None
+hi LineNr       ctermfg=244     ctermbg=None    cterm=None
 hi VertSplit    ctermfg=236     ctermbg=236     cterm=None
 hi NonText      ctermfg=40      ctermbg=None    cterm=None
 hi Cursor       ctermfg=124     ctermbg=None    cterm=None
@@ -57,10 +57,10 @@ hi SpecialKey   ctermfg=87      ctermbg=None    cterm=Bold
 hi FoldColumn   ctermfg=247     ctermbg=None    cterm=Bold
 hi DiffAdd      ctermfg=16      ctermbg=120     cterm=None
 hi DiffDelete   ctermfg=16      ctermbg=217     cterm=None
-hi DiffText     ctermfg=16      ctermbg=228     cterm=None
-hi DiffChange   ctermfg=none    ctermbg=none    cterm=bold
+hi DiffText     ctermfg=124     ctermbg=250     cterm=None
+hi DiffChange   ctermfg=16      ctermbg=229     cterm=None
 
-hi Search       ctermfg=236     ctermbg=226     cterm=Bold
+hi Search       ctermfg=236     ctermbg=226     cterm=None
 hi Todo         ctermfg=233     ctermbg=118     cterm=Bold
 hi ErrorMsg     ctermfg=124     ctermbg=252     cterm=None
 hi WarningMsg   ctermfg=124     ctermbg=None    cterm=None
@@ -69,13 +69,13 @@ hi Statement    ctermfg=75      ctermbg=None    cterm=None
 hi Type         ctermfg=75      ctermbg=None    cterm=None
 hi Constant     ctermfg=208     ctermbg=None    cterm=None
 hi Comment      ctermfg=244     ctermbg=None    cterm=None
-hi PreProc      ctermfg=185     ctermbg=None    cterm=None
+hi PreProc      ctermfg=244     ctermbg=None    cterm=None
 hi String       ctermfg=214     ctermbg=None    cterm=None
 hi Number       ctermfg=176     ctermbg=None    cterm=None
 hi Special      ctermfg=228     ctermbg=None    cterm=Bold
 hi Operator     ctermfg=202     ctermbg=None    cterm=Bold
-hi Error        ctermfg=16          ctermbg=124         cterm=Bold
-hi Ignore       ctermfg=244         ctermbg=236         cterm=Bold
+hi Error        ctermfg=16      ctermbg=124     cterm=Bold
+hi Ignore       ctermfg=244     ctermbg=236     cterm=Bold
 hi Underline    ctermfg=244         ctermbg=None        cterm=None
 
 hi Pmenu        ctermfg=White       ctermbg=DarkGray    cterm=None

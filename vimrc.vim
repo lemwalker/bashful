@@ -76,14 +76,12 @@ hi Special      ctermfg=228     ctermbg=None    cterm=Bold
 hi Operator     ctermfg=202     ctermbg=None    cterm=Bold
 hi Error        ctermfg=16      ctermbg=124     cterm=Bold
 hi Ignore       ctermfg=244     ctermbg=236     cterm=Bold
-hi Underline    ctermfg=244         ctermbg=None        cterm=None
+hi Underline    ctermfg=244     ctermbg=None    cterm=None
 
 hi Pmenu        ctermfg=White       ctermbg=DarkGray    cterm=None
 hi PmenuSel     ctermfg=None        ctermbg=Gray        cterm=Bold
 hi PmenuSbar    ctermfg=DarkGray    ctermbg=DarkGray    cterm=None
 hi PmenuThumb   ctermfg=Gray        ctermbg=Gray        cterm=None
-
-
 
 " sh specific
 "   -- Colors to use w dark theme
@@ -103,5 +101,4 @@ hi PmenuThumb   ctermfg=Gray        ctermbg=Gray        cterm=None
 "   grey       : 246
 "   white      : 253
 "
-
 

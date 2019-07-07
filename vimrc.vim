@@ -26,6 +26,10 @@ set laststatus=2
 set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
 set hlsearch "highlight matches
 set wildmenu
+set ignorecase " case insensitive search
+set smartcase  " searching uppercase char forces case-sensitive
+set visualbell
+"set mouse=a
 
 if &diff
     " ignore whitespace in vimdiff

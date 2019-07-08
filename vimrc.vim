@@ -21,6 +21,7 @@ set expandtab       " Replaces tabs with spaces
 "set ruler
 set ttyfast     "screen updates smoother. assumes fast connection
 "set showcmd
+set list
 set listchars=tab:→\ ,trail:·
 set laststatus=2
 set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
@@ -29,7 +30,7 @@ set wildmenu
 set ignorecase " case insensitive search
 set smartcase  " searching uppercase char forces case-sensitive
 set visualbell
-"set mouse=a
+set mouse=a
 
 if &diff
     " ignore whitespace in vimdiff
@@ -42,7 +43,7 @@ endif
 "   202:orange          208:light-orange        214:bright-orange
 "   185:yellow          190:light-yellow        228:bright-yellow
 "   40 :green           77 :light-green         120:bright-green
-"   64 :blue            75 :light-blue          81 :bright-blue
+"   27 :blue            75 :light-blue          81 :bright-blue
 "   44 :cyan            87 :light-cyan          123:bright-cyan
 "   165:magenta         176:light-magenta       219:bright-magenta
 "   16 :Black           213:white               233:Almost black
@@ -76,7 +77,7 @@ hi Comment      ctermfg=244     ctermbg=None    cterm=None
 hi PreProc      ctermfg=244     ctermbg=None    cterm=None
 hi String       ctermfg=214     ctermbg=None    cterm=None
 hi Number       ctermfg=176     ctermbg=None    cterm=None
-hi Special      ctermfg=228     ctermbg=None    cterm=Bold
+hi Special      ctermfg=228     ctermbg=None    cterm=None
 hi Operator     ctermfg=202     ctermbg=None    cterm=Bold
 hi Error        ctermfg=16      ctermbg=124     cterm=Bold
 hi Ignore       ctermfg=244     ctermbg=236     cterm=Bold

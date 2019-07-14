@@ -9,7 +9,7 @@ set background=dark
 
 set number
 set ruler
-"set cursorline
+set cursorline
 
 set autoindent
 set smartindent
@@ -53,12 +53,14 @@ endif
 
 hi StatusLine   ctermfg=16      ctermbg=71      cterm=None
 hi StatusLineNC ctermfg=242     ctermbg=236     cterm=None
+hi CursorLine   term=None       cterm=None
+hi CursorLineNr ctermfg=230     ctermbg=None    cterm=None
 hi Directory    ctermfg=76      ctermbg=None    cterm=None
 hi LineNr       ctermfg=244     ctermbg=None    cterm=None
 hi VertSplit    ctermfg=236     ctermbg=236     cterm=None
 hi NonText      ctermfg=40      ctermbg=None    cterm=None
 hi Cursor       ctermfg=124     ctermbg=None    cterm=None
-hi SpecialKey   ctermfg=87      ctermbg=None    cterm=Bold
+hi SpecialKey   ctermfg=87      ctermbg=None    cterm=None
 hi FoldColumn   ctermfg=247     ctermbg=None    cterm=Bold
 hi DiffAdd      ctermfg=16      ctermbg=120     cterm=None
 hi DiffDelete   ctermfg=16      ctermbg=217     cterm=None

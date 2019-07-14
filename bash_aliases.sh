@@ -25,3 +25,8 @@ if [[ -f ~/.dircolors ]]; then
     eval $(dircolors ~/.dircolors)
 fi
 
+# Windows specific cusomizations
+if [[ $(uname -v) =~ Microsoft ]]; then
+    [[ -f ~/.cyg_aliases ]] && source ~/.cyg_aliases
+fi
+

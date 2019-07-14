@@ -17,12 +17,21 @@ function is_defined() {
 ## use 256 colors
 if is_defined tput ; then
     [[ $(tput -T$TERM colors) -ge 8 ]] && export TERM=xterm-256color
-    export PS1="\w>\[$(tput sgr0)\]"
+    # "$(PWD)>" in green
+    export PS1="\[\033[38;5;120m\]\w>\[$(tput sgr0)\]"
 fi
 
-# set custom dircolors
-if [[ -f ~/.dircolors ]]; then
-    eval $(dircolors ~/.dircolors)
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+
+# TODO grep colors
+# TODO less colors
 fi
 
 # Windows specific cusomizations
@@ -30,3 +39,4 @@ if [[ $(uname -v) =~ Microsoft ]]; then
     [[ -f ~/.cyg_aliases ]] && source ~/.cyg_aliases
 fi
 
+# TODO: source in local aliases?

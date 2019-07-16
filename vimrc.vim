@@ -58,7 +58,7 @@ hi LineNr       ctermfg=244     ctermbg=None    cterm=None
 hi VertSplit    ctermfg=236     ctermbg=236     cterm=None
 hi NonText      ctermfg=40      ctermbg=None    cterm=None
 hi Cursor       ctermfg=124     ctermbg=None    cterm=None
-hi SpecialKey   ctermfg=87      ctermbg=None    cterm=Bold
+hi SpecialKey   ctermfg=240     ctermbg=None    cterm=None
 hi FoldColumn   ctermfg=247     ctermbg=None    cterm=Bold
 hi DiffAdd      ctermfg=16      ctermbg=120     cterm=None
 hi DiffDelete   ctermfg=16      ctermbg=217     cterm=None
@@ -69,16 +69,17 @@ hi Search       ctermfg=236     ctermbg=226     cterm=None
 hi Todo         ctermfg=233     ctermbg=118     cterm=Bold
 hi ErrorMsg     ctermfg=124     ctermbg=252     cterm=None
 hi WarningMsg   ctermfg=124     ctermbg=None    cterm=None
-hi Identifier   ctermfg=44      ctermbg=None    cterm=None
+hi Identifier   ctermfg=71      ctermbg=None    cterm=Bold
 hi Statement    ctermfg=75      ctermbg=None    cterm=None
 hi Type         ctermfg=75      ctermbg=None    cterm=None
 hi Constant     ctermfg=208     ctermbg=None    cterm=None
 hi Comment      ctermfg=244     ctermbg=None    cterm=None
-hi PreProc      ctermfg=244     ctermbg=None    cterm=None
-hi String       ctermfg=214     ctermbg=None    cterm=None
+hi preproc      ctermfg=247     ctermbg=none    cterm=bold
+hi String       ctermfg=208     ctermbg=None    cterm=None
+hi Character    ctermfg=202     ctermbg=None    cterm=None
 hi Number       ctermfg=176     ctermbg=None    cterm=None
 hi Special      ctermfg=228     ctermbg=None    cterm=None
-hi Operator     ctermfg=202     ctermbg=None    cterm=Bold
+hi Operator     ctermfg=208     ctermbg=None    cterm=Bold
 hi Error        ctermfg=16      ctermbg=124     cterm=Bold
 hi Ignore       ctermfg=244     ctermbg=236     cterm=Bold
 hi Underline    ctermfg=244     ctermbg=None    cterm=None
@@ -87,23 +88,4 @@ hi Pmenu        ctermfg=White       ctermbg=DarkGray    cterm=None
 hi PmenuSel     ctermfg=None        ctermbg=Gray        cterm=Bold
 hi PmenuSbar    ctermfg=DarkGray    ctermbg=DarkGray    cterm=None
 hi PmenuThumb   ctermfg=Gray        ctermbg=Gray        cterm=None
-
-" sh specific
-"   -- Colors to use w dark theme
-"   red        : 203
-"   light-red  : 210
-"   orange     : 208
-"   lightorange: 220
-"   yellow     : 178
-"   lightyellow: 193
-"   green      : 71
-"   light-green: 83
-"   blue       : 75
-"   lightblue  : 87
-"   purple     : 176
-"   cyan       : 37
-"   light-cyan : 116
-"   grey       : 246
-"   white      : 253
-"
 

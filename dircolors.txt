@@ -44,8 +44,8 @@ FIFO    40;33           # pipe
 SOCK    38;5;176        # socket
 DOOR    38;5;176        # door
 #BLK     40;33;01       # block device driver
-BLK     38;5;190;01     # block device driver
-CHR     38;5;190;01     # character device driver
+BLK     38;5;228;01     # block device driver
+CHR     38;5;228;01     # character device driver
 ORPHAN  40;31;01        # symlink to nonexistent file, or non-stat'able file ...
 MISSING 00
 SETUID  38;5;247;48;5;124   # file that is setuid (u+s)
@@ -57,8 +57,8 @@ STICKY          38;5;51;04
 
 #EXEC 01;32  # This is for files with execute permission:
 # text files
-.txt    38;5;190
-.dat    38;5;190
+.txt    38;5;228
+.dat    38;5;228
 
 # source code
 .md     38;5;77

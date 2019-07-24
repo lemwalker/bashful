@@ -36,22 +36,24 @@ if &diff
     set diffopt+=iwhite
 endif
 
-set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
+"set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
 
-"set statusline=
-"set statusline+=%#cRed#\ %-16.40(%t%)\ 
-"set statusline+=%#cMud#%-4(%r%)%-3(%m%)\ 
-"set statusline+=%#cOrn#\ \[%n\]\ 
-"set statusline+=%#cYlw#%{&fenc}\ 
-"set statusline+=%#cTrd#\ %-6(%y%)\ 
-"set statusline+=%#cGrn#\ %16(%{synIDattr(synID(line(\".\"),col(\".\"),0),\"name\")}%)\ 
-"set statusline+=%#cCyn#cCyn\ 
-"set statusline+=%#cBlg#\ %-48.48(%{getcwd()}%)\ 
-"set statusline+=%=
-"set statusline+=%#cBlu#\[%n\]\ 
-"set statusline+=%#cPur#%-6(%o%)\ 
-"set statusline+=%#cMag#\ %4l:%-3c\ 
-"set statusline+=%#cPlm#%02Bx
+set statusline=
+" Left section - file info
+set statusline+=%#cDrk#\ 
+set statusline+=%-32(%t%)\ 
+set statusline+=%-10(\[%{&fenc}\]%)\ 
+" Center section. set hi based on Insert/Normal  mode  or File mod flag %m
+set statusline+=%#cGry#\ 
+set statusline+=::%-1.4(%r%)%-1.3(%m%)::\ 
+set statusline+=\ %-12.40(%{getcwd()}%)\ 
+set statusline+=%=
+" Right section - cursor info
+set statusline+=%#cDrk#\ 
+set statusline+=%11.11(%{synIDattr(synIDtrans(synID(line(\".\"),col(\".\"),0)),\"name\")}%)\ 
+set statusline+=%-14.14(%{synIDattr(synID(line(\".\"),col(\".\"),0),\"name\")}%)\ 
+set statusline+=\|%4l:%-3c\ 
+set statusline+=%02Bx\ 
 
 " Highlighting
 "   124:Red             210:light-Red           217:bright-Red
@@ -66,6 +68,7 @@ set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
 "   245:lightish-Gray   247:light-gray
 
 " two tone hilighting groups
+hi def link cNml Normal
 hi cRed ctermbg=52  ctermfg=217 cterm=none
 hi cGrn ctermbg=22  ctermfg=157 cterm=none
 hi cBlu ctermbg=17  ctermfg=147 cterm=none

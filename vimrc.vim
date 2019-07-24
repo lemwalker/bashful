@@ -39,16 +39,26 @@ endif
 "set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
 
 set statusline=
-" Left section - file info
+" Left section - file info    
 set statusline+=%#cDrk#\ 
-set statusline+=%-32(%t%)\ 
-set statusline+=%-10(\[%{&fenc}\]%)\ 
+"set statusline+=%-10(\[%{&fenc}\]%)\ 
+set statusline+=%{'\['.(&fenc!=''?&fenc:&enc).'\]'}\ 
+set statusline+=%24(%t%)\ 
 " Center section. set hi based on Insert/Normal  mode  or File mod flag %m
 set statusline+=%#cGry#\ 
-set statusline+=::%-1.4(%r%)%-1.3(%m%)::\ 
+if (mode()=='n')
+    set statusline+=N
+else
+    set statusline+=X\ 
+endif
+"set statusline+=\(%{mode()}\)\ 
+" conditional
+set statusline+=%{mode()=='i'?'(i)':'\ '}\ 
+"set statusline+=%{''.(%{mode()=='i'?'I':''}).''}\ 
+set statusline+=:%-1.4(%r%)%-1.3(%m%):\ 
 set statusline+=\ %-12.40(%{getcwd()}%)\ 
 set statusline+=%=
-" Right section - cursor info
+" Right section - cursor info  
 set statusline+=%#cDrk#\ 
 set statusline+=%11.11(%{synIDattr(synIDtrans(synID(line(\".\"),col(\".\"),0)),\"name\")}%)\ 
 set statusline+=%-14.14(%{synIDattr(synID(line(\".\"),col(\".\"),0),\"name\")}%)\ 

@@ -24,7 +24,6 @@ set ttyfast     "screen updates smoother. assumes fast connection
 set list
 set listchars=tab:→\ ,trail:·
 set laststatus=2
-set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
 set hlsearch "highlight matches
 set wildmenu
 set ignorecase " case insensitive search
@@ -37,6 +36,22 @@ if &diff
     set diffopt+=iwhite
 endif
 
+set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
+
+"set statusline=
+"set statusline+=%#cRed#\ %-16.40(%t%)\ 
+"set statusline+=%#cMud#%-4(%r%)%-3(%m%)\ 
+"set statusline+=%#cOrn#\ \[%n\]\ 
+"set statusline+=%#cYlw#%{&fenc}\ 
+"set statusline+=%#cTrd#\ %-6(%y%)\ 
+"set statusline+=%#cGrn#\ %16(%{synIDattr(synID(line(\".\"),col(\".\"),0),\"name\")}%)\ 
+"set statusline+=%#cCyn#cCyn\ 
+"set statusline+=%#cBlg#\ %-48.48(%{getcwd()}%)\ 
+"set statusline+=%=
+"set statusline+=%#cBlu#\[%n\]\ 
+"set statusline+=%#cPur#%-6(%o%)\ 
+"set statusline+=%#cMag#\ %4l:%-3c\ 
+"set statusline+=%#cPlm#%02Bx
 
 " Highlighting
 "   124:Red             210:light-Red           217:bright-Red
@@ -50,6 +65,24 @@ endif
 "   236:Dark Gray       242:darkish-Gray        244:medium-Gray
 "   245:lightish-Gray   247:light-gray
 
+" two tone hilighting groups
+hi cRed ctermbg=52  ctermfg=217 cterm=none
+hi cGrn ctermbg=22  ctermfg=157 cterm=none
+hi cBlu ctermbg=17  ctermfg=147 cterm=none
+
+hi cYlw ctermbg=100 ctermfg=227 cterm=none
+hi cMag ctermbg=53  ctermfg=213 cterm=none
+hi cCyn ctermbg=23  ctermfg=123 cterm=none
+
+hi cOrn ctermbg=130 ctermfg=214 cterm=none
+hi cMud ctermbg=94  ctermfg=222 cterm=none
+hi cPlm ctermbg=89  ctermfg=211 cterm=none
+hi cTrd ctermbg=64  ctermfg=193 cterm=none
+hi cPur ctermbg=54  ctermfg=183 cterm=none
+hi cBlg ctermbg=24  ctermfg=153 cterm=none
+
+hi cDrk ctermbg=240 ctermfg=248 cterm=none
+hi cGry ctermbg=248 ctermfg=240 cterm=none
 
 hi StatusLine   ctermfg=16      ctermbg=71      cterm=None
 hi StatusLineNC ctermfg=242     ctermbg=236     cterm=None

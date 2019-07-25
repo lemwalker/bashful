@@ -40,36 +40,35 @@ if &diff
     set diffopt+=iwhite
 endif
 
+
+" statusline
 "set statusline=\ %F\ %w\ \ cwd:\ %r%{getcwd()}\ \ \ %=\ %m%r%h\ %04l:%-4c\ %02Bx
 
 set statusline=
-" Left section - file info    
+" Left section - file info
 set statusline+=%#cDrk#\ 
 "set statusline+=%-10(\[%{&fenc}\]%)\ 
 set statusline+=%{'\['.(&fenc!=''?&fenc:&enc).'\]'}\ 
-set statusline+=%24(%t%)\ 
+set statusline+=%24(%t%)
+
+" modified flag
+set statusline+=%{&mod?'*':'\ '}
+" read only flag
+set statusline+=%{&ro?'-':'\ '}
+" single-byte mode indicator
+set statusline+=%{mode()=='n'?'·':''}
+set statusline+=%{mode()=='i'?'^':''}
+set statusline+=%{mode()=='v'?'>':''}\ 
 " Center section. set hi based on Insert/Normal  mode  or File mod flag %m
-set statusline+=%#cGry#\ 
-"if (mode()=='n')
-"    set statusline+=N
-"else
-"    set statusline+=X\ 
-"endif
-"set statusline+=\(%{mode()}\)\ 
-" conditional
-"set statusline+=%{mode()=='i'?'(i)':''}\ 
-set statusline+=%{mode()=='i'?'(i)':''}\ 
-"set statusline+=%{mode()=='i'?'(i)':%{mode()=='n'?'(n)':''}}\ 
-set statusline+=%{mode()=='n'?'(n)':'\ '}\ 
-"set statusline+=%{''.(%{mode()=='i'?'I':''}).''}\ 
-set statusline+=:%-1.4(%r%)%-1.3(%m%):\ 
-set statusline+=\ %-12.40(%{getcwd()}%)\ 
+set statusline+=%#cGry#
+set statusline+=\ %-12.48(%{getcwd()}%)\ 
 set statusline+=%=
-" Right section - cursor info  
+" Right section - cursor info
 set statusline+=%#cDrk#\ 
-set statusline+=%11.11(%{synIDattr(synIDtrans(synID(line(\".\"),col(\".\"),0)),\"name\")}%)\ 
-set statusline+=%-14.14(%{synIDattr(synID(line(\".\"),col(\".\"),0),\"name\")}%)\ 
-set statusline+=\|%4l:%-3c\ 
+" Syntax attributes. Useful for tweaking, but distracting
+"set statusline+=%11.11(%{synIDattr(synIDtrans(synID(line(\".\"),col(\".\"),0)),\"name\")}%)\ 
+"set statusline+=%-14.14(%{synIDattr(synID(line(\".\"),col(\".\"),0),\"name\")}%)\ 
+set statusline+=%4l:%-3c\|\ 
 set statusline+=%02Bx\ 
 
 " Highlighting

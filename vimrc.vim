@@ -19,6 +19,10 @@ set tabstop=4       " Number of spaces a tab counts for in the file
 set expandtab       " Replaces tabs with spaces
 "set softtabstop     " This causes issues on WSL (as of 20190401)
 "set ruler
+
+set textwidth=0 " prevent wrapping after 78 columns
+
+set splitright      "new files open on the right of the vertical split
 set ttyfast     "screen updates smoother. assumes fast connection
 "set showcmd
 set list
@@ -46,14 +50,17 @@ set statusline+=%{'\['.(&fenc!=''?&fenc:&enc).'\]'}\
 set statusline+=%24(%t%)\ 
 " Center section. set hi based on Insert/Normal  mode  or File mod flag %m
 set statusline+=%#cGry#\ 
-if (mode()=='n')
-    set statusline+=N
-else
-    set statusline+=X\ 
-endif
+"if (mode()=='n')
+"    set statusline+=N
+"else
+"    set statusline+=X\ 
+"endif
 "set statusline+=\(%{mode()}\)\ 
 " conditional
-set statusline+=%{mode()=='i'?'(i)':'\ '}\ 
+"set statusline+=%{mode()=='i'?'(i)':''}\ 
+set statusline+=%{mode()=='i'?'(i)':''}\ 
+"set statusline+=%{mode()=='i'?'(i)':%{mode()=='n'?'(n)':''}}\ 
+set statusline+=%{mode()=='n'?'(n)':'\ '}\ 
 "set statusline+=%{''.(%{mode()=='i'?'I':''}).''}\ 
 set statusline+=:%-1.4(%r%)%-1.3(%m%):\ 
 set statusline+=\ %-12.40(%{getcwd()}%)\ 
@@ -70,7 +77,7 @@ set statusline+=%02Bx\
 "   202:orange          208:light-orange        214:bright-orange
 "   185:yellow          190:light-yellow        228:bright-yellow
 "   40 :green           77 :light-green         120:bright-green
-"   27 :blue            75 :light-blue          81 :bright-blue
+"   63 :blue            75 :light-blue          81 :bright-blue
 "   44 :cyan            87 :light-cyan          123:bright-cyan
 "   165:magenta         176:light-magenta       219:bright-magenta
 "   16 :Black           213:white               233:Almost black
@@ -112,17 +119,21 @@ hi DiffAdd      ctermfg=16      ctermbg=120     cterm=None
 hi DiffDelete   ctermfg=16      ctermbg=217     cterm=None
 hi DiffText     ctermfg=124     ctermbg=250     cterm=None
 hi DiffChange   ctermfg=16      ctermbg=229     cterm=None
+hi Visual       cterm=reverse   ctermfg=none    ctermbg=none
 
 hi Search       ctermfg=236     ctermbg=226     cterm=None
+"hi Search       cterm=reverse,underline  ctermfg=none ctermbg=none
 hi Todo         ctermfg=233     ctermbg=118     cterm=Bold
+hi HelpNote     ctermfg=157     ctermbg=22      cterm=None
 hi ErrorMsg     ctermfg=124     ctermbg=252     cterm=None
 hi WarningMsg   ctermfg=124     ctermbg=None    cterm=None
+hi MatchParen   ctermfg=23      ctermbg=252     cterm=Reverse
 hi Identifier   ctermfg=71      ctermbg=None    cterm=Bold
 hi Statement    ctermfg=75      ctermbg=None    cterm=None
 hi Type         ctermfg=75      ctermbg=None    cterm=None
 hi Constant     ctermfg=208     ctermbg=None    cterm=None
 hi Comment      ctermfg=244     ctermbg=None    cterm=None
-hi preproc      ctermfg=247     ctermbg=none    cterm=bold
+hi PreProc      ctermfg=247     ctermbg=None    cterm=Bold
 hi String       ctermfg=208     ctermbg=None    cterm=None
 hi Character    ctermfg=202     ctermbg=None    cterm=None
 hi Number       ctermfg=176     ctermbg=None    cterm=None
@@ -131,6 +142,9 @@ hi Operator     ctermfg=208     ctermbg=None    cterm=Bold
 hi Error        ctermfg=16      ctermbg=124     cterm=Bold
 hi Ignore       ctermfg=244     ctermbg=236     cterm=Bold
 hi Underline    ctermfg=244     ctermbg=None    cterm=None
+"hi Underlined   ctermfg=63          ctermbg=None        cterm=None
+"hi Title        ctermfg=63          ctermbg=None        cterm=None
+"hi Delimiter    ctermfg=247         ctermbg=None        cterm=None
 
 hi Pmenu        ctermfg=White       ctermbg=DarkGray    cterm=None
 hi PmenuSel     ctermfg=None        ctermbg=Gray        cterm=Bold

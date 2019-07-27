@@ -21,7 +21,7 @@
 #   Up (2009).mkv
 
 
-# Idea: Use hard links to trick radarr
+# Workaround: Use hard links to trick radarr
 
 function error() { echo -e "$1" 2>&1;}
 
@@ -44,7 +44,7 @@ find "$hardlink_dir" -type f -regextype egrep -regex "$ext_pattern" | \
             printf ""
         else
             error "--  Adding link for $base"
-            ln "$file" -T "$target"
+            ln "$file" -T "$target" || error "failed to create link for $base"
         fi
     done
 
@@ -61,20 +61,17 @@ find "$movie_dir" -type f -regextype egrep -regex "$ext_pattern" | \
         base=$(basename  "$file")
         dir="${hardlink_dir}/${base%.*}"
         hl="${dir}/${base}"
-        if [[ -f "$hl" ]]; then
-            error "--  Link $base already exists"
-            #error "  base:$base\n  dir:$dir\n  hl:$hl\n"
-        else
+        if [[ ! -f "$hl" ]]; then
             # check if the hl directory exists
             if [[ ! -d "$dir" ]]; then
                 # create directory
-                mkdir "$dir"
+                mkdir "$dir" || error "failed to create $dir"
             fi
 
             # create the hard link
-            ln "$file" "$dir"
-            #error "  ln $file $dir"
-            sleep 0.5
+            ln "$file" "$dir" && echo "Added link for $base" || error "Failed to add link for $base"
         fi
     done
+
+error "$0 end"
 

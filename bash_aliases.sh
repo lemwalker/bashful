@@ -14,6 +14,12 @@ function is_defined() {
 ! is_defined ll   && alias ll='ls -al'
 ! is_defined ltr  && alias ltr='ls -ltr'
 
+# TODO: build out PS1
+#   move color check somewhere else. i only use color terminals
+#   if ssh variables are defined, add something like "$(hostname):$(PWD)>" with colors
+#   https://unix.stackexchange.com/questions/9605/how-can-i-detect-if-the-shell-is-controlled-from-ssh
+
+
 ## use 256 colors
 if is_defined tput ; then
     [[ $(tput -T$TERM colors) -ge 8 ]] && export TERM=xterm-256color

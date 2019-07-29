@@ -21,7 +21,7 @@ if is_defined tput ; then
     export PS1="\[\033[38;5;120m\]\w>\[$(tput sgr0)\]"
 fi
 
-if [[ -n "SSH_CLIENT" || -n "SSH_TTY" || -n "SSH_CONNECTION" ]]; then
+if [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" || -n "$SSH_CONNECTION" ]]; then
     export PS1="\[\033[38;5;75m\]\u\[$(tput sgr0)\]\[\033[38;5;87m\]@\h:\[$(tput sgr0)\]\[\033[38;5;77m\]\w>\[$(tput sgr0)\]"
 else
     export PS1="\[\033[38;5;120m\]\w>\[$(tput sgr0)\]"

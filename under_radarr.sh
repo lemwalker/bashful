@@ -20,7 +20,6 @@
 #   Logan (2017).mkv
 #   Up (2009).mkv
 
-
 # Workaround: Use hard links to trick radarr
 
 function error() { echo -e "$1" 2>&1;}
@@ -29,47 +28,45 @@ movie_dir="/4TB/Videos/Movies"
 hardlink_dir="/4TB/Videos/radarr/lib"
 ext_pattern='.+\.(mp4|mkv|avi)'
 
-
-error "Checking $hardlink_dir"
+error "\nChecking $hardlink_dir"
 
 # make sure all files downloaded by radarr are moved into movie_dir
-find "$hardlink_dir" -type f -regextype egrep -regex "$ext_pattern" | \
-    while read file; do
+find "$hardlink_dir" -type f -regextype egrep -regex "$ext_pattern" -printf "%i %p\n" | sort -k 2 | \
+    while read inode file; do
 
-        base=$(basename  "$file")
-        target="${movie_dir}/${base}"
-        #error "Check for $target"
-        if [[ -f "$target" ]]; then
-            #error "EXISTS: $target"
-            printf ""
-        else
-            error "--  Adding link for $base"
-            ln "$file" -T "$target" || error "failed to create link for $base"
+        # check to see if the file exists in movie_dir
+        linked_file=$(find "$movie_dir" -inum "$inode" 2>/dev/null)
+
+        if [[ -z "$linked_file" ]]; then
+            base=$(basename  "$file")
+            if ln "$file" "$movie_dir"; then
+                echo "  Added link to '$base' in '$movie_dir'"
+            else
+                error "  Failed to add link"
+            fi
         fi
     done
 
-
-error "checking $movie_dir"
-
+error "Checking $movie_dir"
 
 # make sure all files in movie_dir are added to a subfolder in hardlink_dir
-find "$movie_dir" -type f -regextype egrep -regex "$ext_pattern" | \
-    while read file; do
-        # TODO: print
-        #error "$file"
-
-        base=$(basename  "$file")
-        dir="${hardlink_dir}/${base%.*}"
-        hl="${dir}/${base}"
-        if [[ ! -f "$hl" ]]; then
-            # check if the hl directory exists
-            if [[ ! -d "$dir" ]]; then
-                # create directory
-                mkdir "$dir" || error "failed to create $dir"
+find "$movie_dir" -type f -regextype egrep -regex "$ext_pattern" -printf "%i %p\n" | sort -k 2 | \
+    while read inode file; do
+        linked_file=$(find "$hardlink_dir" -inum "$inode" 2>/dev/null)
+        if [[ -z "$linked_file" ]]; then
+            base=$(basename  "$file")
+            file_dir="${hardlink_dir}/${base%.*}"
+            if [[ ! -d "$file_dir" ]]; then
+                # create the directory
+                mkdir "$file_dir" || error "Failed to create directory '$file_dir'"
             fi
 
             # create the hard link
-            ln "$file" "$dir" && echo "Added link for $base" || error "Failed to add link for $base"
+            if ln "$file" "$file_dir"; then
+                echo "  Added link to '$base' in '$file_dir'"
+            else
+                error "Failed to add link for $base"
+            fi
         fi
     done
 

@@ -5,7 +5,7 @@
 #       use a pattern that controls the directory structure
 # TODO: flags, interactive mode, dry run, verbose
 
-# radarr requieres that movies be in subfolders matching the file name:
+# radarr requires that movies be in subfolders matching the file name:
 #   /Movies/
 #   /Movies/Argo (2012)/
 #     Argo (2012).mkv

@@ -1,0 +1,16 @@
+# This is Git's per-user configuration file.
+[color "branch"]
+    local = 228
+    current = 157 22
+    remote = 208
+[color "status"]
+    changed = 210
+    header = 75
+    untracked = 176
+    added = 71
+[color "diff"]
+    meta = 23   123  bold
+    frag = 123  23
+    old  = 210
+    new  = 77
+

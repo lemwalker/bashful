@@ -1,0 +1,17 @@
+# This is Git's per-user configuration file.
+[color "branch"]
+    local = 229
+    current = 75
+    remote = 213
+[color "status"]
+    changed = 210
+    header = 145
+    untracked = 176
+    added = 71
+[color "diff"]
+    meta = 87
+    frag = 227
+    old  = 210
+    new  = 71
+[alias]
+    log1 = log --date=format:'%Y-%m-%d' --format='%C(75)%h %C(77)%cd %><(12,trunc)(%cr) %C(87)%<(12,trunc)%an %C(145)%s'

@@ -19,6 +19,16 @@ if is_defined tput ; then
     [[ $(tput -T$TERM colors) -ge 8 ]] && export TERM=xterm-256color
     # "$(PWD)>" in green
     export PS1="\[\033[38;5;120m\]\w>\[$(tput sgr0)\]"
+    export GREP_COLORS='sl=49;38;5;255:cx=49;38;5;145:mt=49;92:fn=49;38;5;221:ln=49;38;5;75:bn=49;38;5;213:se=49;38;5;208';
+    # less
+    export LESS=-R
+    export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
+    export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
+    export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+    export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+    export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+    export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+    export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 fi
 
 if [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" || -n "$SSH_CONNECTION" ]]; then
@@ -35,8 +45,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 
-# TODO grep colors
-# TODO less colors
 fi
 
 # Windows specific cusomizations

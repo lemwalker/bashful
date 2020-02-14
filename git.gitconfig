@@ -19,3 +19,8 @@
 %n%b\
 %n    %C(245)committed %cd by %C(252)%an\
 %n    %C(245)parent: %C(252)%p%n\"
+    log3 = log --date=format:\"%Y-%m-%d %H:%M\" --format=\"\
+%n%C(80 23)  commit: %C(bold)%h%C(nobold) %>(32)%cd %>(48)%C(ul)%ae%C(noul) %n\
+%C(87)  %<(72)%s%n\
+%n%w(,2,2)%b\
+\"

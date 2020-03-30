@@ -23,7 +23,7 @@ convert_ext=".mp4"
 file_pattern='^(.+)\.(avi|mkv|mp4)$'
 
 libraries=(
-    "TV"
+    # Populate with subdirectories of $lib_dir. E.g. "TV"
 )
 
 target_dir= # parent library on the remote server
@@ -65,7 +65,6 @@ for f in "${files_to_convert[@]}"; do
     [[ -z "$file_path" ]] && die "$f    file_path fail"
     [[ -z "$conv_path" ]] && die "$f    conv_path fail"
     [[ -z "$target_path" ]] && die "$f    target_path fail"
-    #printf "%s  %s\n" "$file_title" "$file_ext"
 
     check_file_cmd=$(printf "test -f \"%s\"" "$target_path")
     convert_cmd=$(printf "HandBrakeCLI -Z \"%s\" -i \"%s\" -o \"%s\"" "$convert_preset" "$input_file" "$conv_path" )
@@ -96,7 +95,6 @@ for f in "${files_to_convert[@]}"; do
             ((files_converted++))
         else
             printf "Failed to convert file %s\n" "$conv_path"
-            echo "Failed to convert $conv_path"
             continue
         fi
     else

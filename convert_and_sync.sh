@@ -49,6 +49,7 @@ done
 
 counter=0
 files_converted=0
+files_demuxed=0
 files_transferred=0
 for f in "${files_to_convert[@]}"; do
     stop_when_killed
@@ -65,9 +66,11 @@ for f in "${files_to_convert[@]}"; do
     [[ -z "$file_path" ]] && die "$f    file_path fail"
     [[ -z "$conv_path" ]] && die "$f    conv_path fail"
     [[ -z "$target_path" ]] && die "$f    target_path fail"
+    #printf "%s  %s\n" "$file_title" "$file_ext"
 
     check_file_cmd=$(printf "test -f \"%s\"" "$target_path")
     convert_cmd=$(printf "HandBrakeCLI -Z \"%s\" -i \"%s\" -o \"%s\"" "$convert_preset" "$input_file" "$conv_path" )
+    demux_cmd=$(printf "ffmpeg -i \"%s\" -c copy \"%s\""  "$input_file" "$conv_path" )
     check_dir_cmd=$(printf "test -d \"%s\"" "$target_subdir")
     create_dir_cmd=$(printf "mkdir -p \"%s\"" "$target_subdir")
     file_transfer_cmd=$(printf "scp -P %s \"%s\"  \"%s@%s:\\\\\"%s\\\\\"\""  "$target_port"  "$conv_path" "$target_user" "$target_server" "$target_path")
@@ -85,21 +88,36 @@ for f in "${files_to_convert[@]}"; do
             printf "       create_dir_cmd: '%s'\n" "$create_dir_cmd"
             continue
         fi
-    else
-        printf "    Failed to run command '%s'\n" "$check_dir_cmd"
     fi
 
-    # convert the file
+    # can the file be demuxed instead of re-encoded?
+    printf "Checking if %s can be demuxed\n" "$f"
+    if [[ "$f" =~ ^.+\.mkv$ ]]; then
+        # check resolution. keep 1280
+        width=$(mediainfo --Inform="Video;%Width%" "$f")
+        if [[ "$width" -le 1280 ]]; then
+            if eval "$demux_cmd" ; then
+                ((files_demuxed++))
+                printf "  Demux successful\n"
+    else
+                # demux failed. remove the output file. let encoding handle it
+                [[ -e "$conv_path" ]] && rm "$conv_path"
+            fi
+        fi
+    fi
+
+    # re-encode the file using HandBrake
     if [[ ! -e "$conv_path" ]]; then
         if eval "$convert_cmd"; then
             ((files_converted++))
         else
             printf "Failed to convert file %s\n" "$conv_path"
+            echo "Failed to convert $conv_path"
             continue
         fi
     else
         # file already converted
-        printf "    File already converted: %s\n" "$conv_path"
+        printf "    Converted file already exists: %s\n" "$conv_path"
     fi
 
     # transfer the file
@@ -114,9 +132,13 @@ for f in "${files_to_convert[@]}"; do
 
     # exit early
     #[[ $files_converted -ge 10 ]] && break
+    # print after every file
+    printf "\n\n"
+    printf "%-16s:%s\n" "read" "$counter" "converted" "$files_converted" "demuxed" "$files_demuxed" "transferred" "$files_transferred"
 done
 
 printf "%4d files read\n" $counter
 printf "%4d files converted\n" "$files_converted"
+printf "%4d files demuxed\n" "$files_demuxed"
 printf "%4d files tranferred\n" "$files_transferred"
 

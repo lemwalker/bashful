@@ -14,6 +14,11 @@ function is_defined() {
 ! is_defined ll   && alias ll='ls -al'
 ! is_defined ltr  && alias ltr='ls -ltr'
 
+if ! is_defined pbcopy && ! is_defined pbpaste && is_defined xclip ; then
+    alias pbcopy='xclip -i'
+    alias pbpaste='xclip -o'
+fi
+
 os_name="$(sed -rn "s/^PRETTY_NAME=\"([^\"]+)\"$/\1/p" /etc/os-release)"
 if [[ "${os_name,,}" =~ "raspbian" ]] ; then
     dist_name="raspbian"

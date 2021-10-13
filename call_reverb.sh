@@ -40,37 +40,51 @@ base_url="https://api.reverb.com/api"
 url=$(printf "%s/listings/?query=%s" "$base_url" "$query" )
 header=$(printf " -H '%s' " "${header_args[@]}")
 
-fields=(
-    'TotalPrice:((.price.amount_cents + .shipping.rates[0].rate.amount_cents) / 100)'
-    'Condition:.condition.slug'
-    'PreferredSeller:.shop.preferred_seller'
-    'ListingURL:._links.web.href'
-    'CreatedAt:.created_at'
+# TODO: delete
+#fields=(
+#    'TotalPrice:((.price.amount_cents + .shipping.rates[0].rate.amount_cents) / 100)'
+#    'Condition:.condition.slug'
+#    'PreferredSeller:.shop.preferred_seller'
+#    'ListingURL:._links.web.href'
+#    'CreatedAt:.created_at'
+#)
+
+listing_fields=(
+  "rates:.shipping.rates[]"
+  "id"
+  "display_price:.price.display"
+  "price:.price.amount_cents"
+  "condition:.condition.slug"
+  "make"
+  "model"
+  "_url:._links.web.href"
+  "posted:.created_at"
+  "pref_shop:.shop.preferred_seller"
 )
 
-_tmp=$(mktemp -t "${qname}_XXXX")
-echo "Temp file: $_tmp"
+# | select(.rates.region_code=="US_CON")
+# | . += {_total:((.rates.rate.amount_cents + .price) / 100) } 
+#| del(.rates,.price) ' JSON
 
-# build filter from array
-# TODO: better to use an array of strings formatted as 'key:value'
-#   translates better to `jq '.listings[] | {key1:value1}'`
-
+# jq commands to be applied to the listings
+#   only output objects that ship to US_CON
+#   add the price and shipping to get the total
+#   delete the rates and price objects
+_filters=(
+  'select(.rates.region_code=="US_CON")'
+  '| . += {_total:((.rates.rate.amount_cents + .price) / 100)}'
+  '| del(.rates,.price)'
+)
 # transform fields array to comma-separated line
-obj_filter=$(printf "%s,"  "${fields[@]}" | sed 's/,$//')
+obj_filter=$(printf "%s,"  "${listing_fields[@]}" | sed 's/,$//')
+# filters as one space-separated value
+_qf=$(printf "%s " "${_filters[@]}")
 
-
-len="${#labels[@]}"
-
-# TODO: print
-#val_filter=$(printf "%s\n" "${fields[@]}" | sed "s/^.*://" | tr $'\n' ',' | sed "s/, *$//")
-#error "val filter: '$val_filter'"
-error "obj filter: '$obj_filter'"
-
+_tmp=$(mktemp -t "${qname}_XXXX")
 
 # make the initial call
 s_cmd=$(printf "curl %s -X GET '%s'" "$header" "$url")
 resp=$(eval "$s_cmd" 2>/dev/null)
-#resp=$(eval "$s_cmd")
 
 if [[ -z "$resp" ]]; then
     error "No response exeuting command '$s_cmd'"
@@ -88,15 +102,11 @@ if [[ $result_count -lt 1 ]]; then
     exit 2
 fi
 
-#error "# current page $page\n# next page $next_url\n"
-
 while [[ "$page" -le "$total_pages" ]]; do
 
+    error "# reading page $page of $total_pages"
     # output raw response to tmp file
     echo "$resp" >> "$_tmp"
-
-    # output one object per line to stdout
-    #echo "$resp" | jq -c ".listings[] | { ${obj_filter} }"
 
     # get the next page if it exists
     if [[ -n "$next_url" && "$next_url" != 'null'  ]]; then
@@ -105,17 +115,19 @@ while [[ "$page" -le "$total_pages" ]]; do
         resp=$(eval "$s_cmd" 2>/dev/null)
         page=$(get_element ".current_page" "$resp")
         next_url=$(get_element "._links.next.href" "$resp")
-        #error "# next: $next_url"
-        error "# reading page $page of $total_pages"
     else
         #error "# end of the line "
         # end the loop if the next url is not found
         break
     fi
+
 done
 
-# output all listings
-jq -c ".listings[] | { ${obj_filter} }" "$_tmp"
+# read all listings with jq
+jq -Sc ".listings[] | { ${obj_filter} } | ${_qf}" "$_tmp"
 
 # TODO: remove temp file
-# [[ -f "$_tmp" ]] && rm "$_tmp"
+#[[ -f "$_tmp" ]] && rm "$_tmp"
+#TODO: print
+error "command:\njq -Sc '.listings[] | { ${obj_filter} } | ${_qf}' $_tmp"
+
